@@ -1,0 +1,101 @@
+ function abs() --> cmath Library
+
+ // Be careful while copy and paste (change the variables)
+ 
+ tolower() -> works character wise
+ 
+ replace( s.begin(), s.end(), ' ', '~' ); --> algorithm
+ 
+ creating an array of pointers with new operator{
+ 	Node **A;
+ 	A = new Node*[n];
+ }
+ ascii value of 0 -> 48
+ to convert Big to Small  + 32				(Ascii)A =>65 
+ to convert small to big  - 32				(Ascii)a =>97
+ to convert integer in string to number/digit  	   S-48
+ to find the length of the string S.length()
+ 
+ 
+ char = tolower(char)
+ isdigit()  -> #include <ctype.h>
+ sort(pointer to starting of array, pointer to end) -> #include <algorithm>
+ 
+function to copy an array : 
+	 std::copy(std::begin(a), std::end(a), std::begin(b));
+	 
+	 
+// to find the lexicographically next permutation
+ #include<algorithms>
+ int myints[] = {1,2,3};
+  do {
+    std::cout << myints[0] << ' ' << myints[1] << ' ' << myints[2] << '\n';
+  } while ( std::next_permutation(myints,myints+3) );
+//
+
+// To check two arrays for equality :
+#include <algorithm> 
+int a[m]
+int b[m]
+equal(a,a+m,m)//
+
+
+// finding max element in the array 
+max_element(a,a+m);
+
+
+// VECTOR
+#include<vector>
+vector <int> v;
+* v.size() -> Returns vector current size;
+* v.empty() -> bool function 
+* v.push_back(value) -> inserts value at the end of the vector array
+* v.resize(new_size) -> resizes the vector 
+* v.clear() -> clears the array.
+* initializing the vector -> vector <int> v(size,value)
+* initializing a two dimentional matrix -> vector < vector <int> > v(N,vector <int> (M,value))
+
+
+// pairs
+#include <utility>
+pair <int,int> a[i];
+a[i].first
+a[i].second 
+
+// to see if a number is present in the array or not
+itn a[n];
+if(find(a,a+n,x)!= a+n) cout << "FOUND";
+else false;
+
+//sort function for pair example:
+bool sortdes(const pair<int,int> &a,const pair<int,int> &b){
+    if(a.first >b.first)return true;
+    else if(a.first == b.first && a.second < b.second)return true;
+    else return false;
+}
+
+// Modulo operator :
+(a/b)*b + a%b = a
+
+if c = a%b;
+then c = (b*k +a)%b where k = (0,1,2,3,.................)
+
+
+// converting a string to integer 
+#include <sstream>
+ll StringToInteger(string NumberAsString){
+	ll NumberAsInteger;
+	stringstream ss;
+	ss << NumberAsString;
+	ss >> NumberAsInteger;
+	return NumberAsInteger;
+}
+
+// converting an integer to string :
+compiler :: -std = c++1z
+#include<string>
+string s = to_string(integer);
+
+ // Removing ith character from the string s
+ s.erase(s.begin()+i);
+ i--;
