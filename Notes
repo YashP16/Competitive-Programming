@@ -41,7 +41,11 @@ equal(a,a+m,m)//
 
 
 // finding max element in the array 
-max_element(a,a+m);
+max_element(a,a+m); // Returns a pointer to the element
+
+// Getting the index of the value in an array 
+    int *m = min_element(h,h+n);
+    pos = m-h;
 
 
 // VECTOR
@@ -99,3 +103,71 @@ string s = to_string(integer);
  // Removing ith character from the string s
  s.erase(s.begin()+i);
  i--;
+ 
+ 
+ 
+ // calculating combinations (for small ranges)
+int fact(int n){
+    if(n==0) return 1;
+    if (n>0) return n*fact(n-1);
+};
+
+int NCR(int n,int r){
+    if(n==r) return 1;
+    if (r==0&&n!=0) return 1;
+	else return fact(n)/(fact(r)*fact(n-r));;
+};
+
+// Is prime function :
+bool
+ isPrime(ll n){
+    if(n == 2)return true;
+    ll i;
+    FOR(i,2,sqrt(n)+1,1){
+        if(n%i ==0){
+            return false;
+        }
+    }
+    return true;
+}
+
+// Fibonacci function with sieve :
+vi fib_sieve (3,-1);
+
+ll fibonacci(ll i){
+    if(fib_sieve[i] != -1) return fib_sieve[i];
+    else{
+        return fibonacci(i-1)+fibonacci(i-2);
+    }
+}
+
+
+// Function to reverse a string :
+
+reverse(result.begin(),result.end());
+
+
+// for printing a 2d Matrix
+
+void printMatrix(int *M,int a,int b){
+	cout << endl <<endl;
+	REP(i,a){
+		REP(j,b){
+			cout << *((M+i*a)+j) << " ";
+		}
+		cout << endl;
+	}
+} 
+
+printMatrix((int*)M,n+1,W+1);
+
+
+// using stack in stl 
+
+#include <stack>
+stack <data_type> stack_name;
+.push(x)
+.pop()
+.empty()
+.top()
+

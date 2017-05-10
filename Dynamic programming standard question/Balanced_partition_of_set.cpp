@@ -1,6 +1,3 @@
-// Maximum subarray sum 
-// Kadane's algorithms
-
 #include <iostream>
 #include <algorithm>
 #include <string.h>
@@ -18,25 +15,32 @@
 #define ull unsigned long long
 using namespace std;
 
-//-2 -3 4 -1 -2 5 1 -3
-
-int maxSubArraySum(int l[],int n){
-	int max_so_far  = l[0];
-	int max_current = l[0];
-	FOR(i,1,n,1){
-		max_current = max(l[i],max_current + l[i]);
-		max_so_far = max(max_so_far,max_current);
-	}
-	return max_so_far;
-}
 
 int main(){
-	int n; 
+	int n;
 	cin >> n;
-	int list[n];
-	REP(i,n){
-		cin >> list[i];
-	}	
-	cout << maxSubArraySum(list,n) << endl;
+	int set[n];
+	int m = 0;
+	REP(i,n){ 
+		cin >> set[i];
+		m += set[i];
+	}
+	int table[n+1][m+1]={0};
+	FOR(i,0,n+1,1){
+		FOR(j,0,m+1,1){
+			if(j==0)table[i][j]=1;
+			else if(i==0 && j!= 0) table[i][j]=0; 
+			else{
+				if(j - set[i-1] < 0) table[i][j]= table[i-1][j];
+				else table[i][j]=max(table[i-1][j],table[i-1][j-set[i-1]]);
+			}
+		}
+	}
+	REP(i,n+1){
+		REP(j,m+1){
+			cout << table[i][j] << " ";
+		}
+		cout << endl;
+	}
 	return 0;
 }

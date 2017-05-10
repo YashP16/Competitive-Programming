@@ -1,10 +1,12 @@
-// Maximum subarray sum 
-// Kadane's algorithms
+// Template for Codejam
+// use ./a.out < smallQ#.in > smallQ#.txt
 
 #include <iostream>
 #include <algorithm>
 #include <string.h>
 #include <math.h>
+#include <stdio.h>
+#include <cstdlib>
 #include <vector>
 #include <sstream>
 #include <utility> // for pair
@@ -18,25 +20,13 @@
 #define ull unsigned long long
 using namespace std;
 
-//-2 -3 4 -1 -2 5 1 -3
-
-int maxSubArraySum(int l[],int n){
-	int max_so_far  = l[0];
-	int max_current = l[0];
-	FOR(i,1,n,1){
-		max_current = max(l[i],max_current + l[i]);
-		max_so_far = max(max_so_far,max_current);
-	}
-	return max_so_far;
-}
 
 int main(){
-	int n; 
-	cin >> n;
-	int list[n];
-	REP(i,n){
-		cin >> list[i];
-	}	
-	cout << maxSubArraySum(list,n) << endl;
+	int T;
+	cin >> T;
+	REP(i,T){
+		int n,a[3];
+		
+	} 
 	return 0;
 }

@@ -1,6 +1,3 @@
-// Maximum subarray sum 
-// Kadane's algorithms
-
 #include <iostream>
 #include <algorithm>
 #include <string.h>
@@ -18,25 +15,33 @@
 #define ull unsigned long long
 using namespace std;
 
-//-2 -3 4 -1 -2 5 1 -3
+void editDistance(string s1, string s2){
+	int table[s1.length()+1][s2.length()+1] = {0};
+	FOR(i,0,s1.length()+1,1){
+		FOR(j,0,s2.length()+1,1){
+			if(i == 0){
+				table[i][j]=j;
+			}
+			else if(j== 0 && i > 0){
+				table[i][j]= i;
+			}
 
-int maxSubArraySum(int l[],int n){
-	int max_so_far  = l[0];
-	int max_current = l[0];
-	FOR(i,1,n,1){
-		max_current = max(l[i],max_current + l[i]);
-		max_so_far = max(max_so_far,max_current);
+			else{
+				if(s1[i-1] == s2[j-1]){
+					table[i][j] = table[i-1][j-1];
+				}
+				else{
+					table[i][j]= min(min(table[i-1][j],table[i][j-1]), table[i-1][j-1]) + 1;
+				}
+			}
+		}
 	}
-	return max_so_far;
+	cout << table[s1.length()][s2.length()] << endl;
 }
 
 int main(){
-	int n; 
-	cin >> n;
-	int list[n];
-	REP(i,n){
-		cin >> list[i];
-	}	
-	cout << maxSubArraySum(list,n) << endl;
+	string s1,s2;
+	cin >> s1 >> s2;
+	editDistance(s1,s2);
 	return 0;
 }

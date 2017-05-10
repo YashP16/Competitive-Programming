@@ -1,5 +1,4 @@
-// Maximum subarray sum 
-// Kadane's algorithms
+// Epic bithaya hai yaar 
 
 #include <iostream>
 #include <algorithm>
@@ -18,25 +17,38 @@
 #define ull unsigned long long
 using namespace std;
 
-//-2 -3 4 -1 -2 5 1 -3
-
-int maxSubArraySum(int l[],int n){
-	int max_so_far  = l[0];
-	int max_current = l[0];
-	FOR(i,1,n,1){
-		max_current = max(l[i],max_current + l[i]);
-		max_so_far = max(max_so_far,max_current);
-	}
-	return max_so_far;
-}
 
 int main(){
-	int n; 
-	cin >> n;
-	int list[n];
-	REP(i,n){
-		cin >> list[i];
-	}	
-	cout << maxSubArraySum(list,n) << endl;
+	int t;
+	cin >> t;
+	
+	while(t--){
+		int n;
+		cin >> n;
+		int a[2*n+1];
+		int c[2*n+1];
+		
+		FOR(i,1,2*n+1,1){
+			cin >> a[i];
+			c[i] = a[i];
+		}
+		
+		sort(c+1,c+(2*n)+1);
+		int med = c[2*n-(n/2)];
+		cout << med << endl;
+
+		int count = 1;
+		FOR(i,1,2*n+1,2){
+			a[i] = c[count];
+			count++;
+		}
+		FOR(i,2,2*n+1,2){
+			a[i]=c[count];
+			count++;
+		}
+
+		FOR(i,1,2*n+1,1)cout << a[i] << " ";
+		cout << endl;
+	}
 	return 0;
 }
