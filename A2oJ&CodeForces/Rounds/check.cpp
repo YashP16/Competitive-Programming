@@ -1,34 +1,23 @@
 #include <iostream>
-#include <algorithm>
-#include <string.h>
-#include <math.h>
-#include <vector>
-#include <utility> // for pair
-#define FOR(i,a,b,c) for(i=a;i<b;i += c)
-#define FORd(i,a,b,c) for(i=a;i>=b;i -=c)
-#define ll long long int
-using namespace std;
 
-int main(){
-	vector<int> v(10);
-	vector<int>::iterator x =v.begin();
+bool XOR(bool a, bool b)
+{
+    return (a + b) % 2;
+}
 
-	int c=2;
-	while(c!=0){
-		int y = v.size();
-		int n;
-		cin >> c;
-		cin >> n; 
-		//v.resize(y+1);
-		v.insert(x+c+1,n);
-		int i;
-		FOR(i,0,v.size(),1){
-			cout << v[i] << " ";
-		}
-		cout << endl;
-
-	}
-	
-	
-	return 0;
+int main()
+{
+    using namespace std;
+    cout << "XOR(true, true):\t" << XOR(true, true) << endl
+         << "XOR(true, false):\t" << XOR(true, false) << endl
+         << "XOR(false, true):\t" << XOR(false, true) << endl
+         << "XOR(false, false):\t" << XOR(false, false) << endl
+         << "XOR(0, 0):\t\t" << XOR(0, 0) << endl
+         << "XOR(1, 0):\t\t" << XOR(1, 0) << endl
+         << "XOR(5, 0):\t\t" << XOR(5, 0) << endl
+         << "XOR(20, 0):\t\t" << XOR(20, 0) << endl
+         << "XOR(6, 6):\t\t" << XOR(5, 5) << endl
+         << "XOR(5, 6):\t\t" << XOR(5, 6) << endl
+         << "XOR(1, 1):\t\t" << XOR(1, 1) << endl;
+    return 0;
 }

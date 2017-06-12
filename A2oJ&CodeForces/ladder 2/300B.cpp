@@ -1,3 +1,5 @@
+// coach // dfs
+
 #include <iostream>
 #include <algorithm>
 #include <string.h>
@@ -29,25 +31,82 @@ int main(){
 	}
 	else{
 		pair <vector<int>,int>  a[n+1];
+		FOR(l,1,n+1,1)a[l].second = -1;
 		while(m--){
 			int x,y;
 			cin >> x >> y;
 			a[x].first.push_back(y);
-			a[x].second = -1;
-			a[y].first.push_back(x);
-			a[y].second = -1;
 		}
-		/*FOR(i,1,n+1,1){
-			cout << i  << "->  " << a[i].second << " " ;
-			
-			FOR(j,0,a[i].first.size(),1){
-				cout << a[i].first[j] << " ";
+
+		int count = n;
+		vector < int > three;
+		vector < int > two;
+		vector < int > one;
+
+
+		while(count>0){
+			int i =1;
+			while(a[i].second != -1 && i < n)i++;
+
+			stack <int> s;
+			vector <int> buffer;
+			s.push(i);
+			count--;
+			buffer.push_back(i);
+			a[s.top()].second = 1;
+			while(!s.empty()){
+				if(a[s.top()].first.size()==0){
+					s.pop();
+				}
+				else{
+					if(a[a[s.top()].first[0]].second == -1){
+						buffer.push_back(a[s.top()].first[0]);
+						a[s.top()].first.erase(a[s.top()].first.begin());
+						s.push(buffer[buffer.size()-1]);
+						a[s.top()].second = 1;
+						count--;
+					}
+					else a[s.top()].first.erase(a[s.top()].first.begin());
+				}
 			}
-			cout << endl;
-		}*/
+			if(buffer.size() > 3){
+			 	cout << -1 << endl;
+			 	return 0;
+			}
+			else if (buffer.size() == 1)one.push_back(buffer[0]);				
+			else if (buffer.size() == 2){
+				two.push_back(buffer[0]);
+				two.push_back(buffer[1]);
+			}
+			else if(buffer.size() == 3 ){
+				three.push_back(buffer[0]);
+				three.push_back(buffer[1]);
+				three.push_back(buffer[2]);
+			}
+		}
 		
-
-
+		
+		if(two.size()/2> one.size())cout << -1 << endl;
+		
+		else if((one.size()-(two.size()/2))%3 != 0)cout << -1 << endl;
+		
+		else{
+			FOR(i,0,three.size(),1){
+				cout << three[i] << " ";
+				if(i % 3 == 2) cout << endl;
+			}
+			FOR(j,0,two.size(),1){
+				cout << two[j] << " ";
+				if(j%2 == 1){
+					cout << one[0] << endl;
+					one.erase(one.begin());
+				}
+			}
+			FOR(i,0,one.size(),1){
+				cout << one[i] << " ";
+				if(i+1 % 3 == 0)cout << endl;
+			}
+		}
 	}
 
 	return 0;

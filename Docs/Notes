@@ -72,6 +72,7 @@ if(find(a,a+n,x)!= a+n) cout << "FOUND";
 else false;
 
 //sort function for pair example:
+true means don't swap
 bool sortdes(const pair<int,int> &a,const pair<int,int> &b){
     if(a.first >b.first)return true;
     else if(a.first == b.first && a.second < b.second)return true;
@@ -171,3 +172,49 @@ stack <data_type> stack_name;
 .empty()
 .top()
 
+
+initialising an array : fill_n(dist,n,InF);
+#include <algorithm>
+
+
+string toBinary(int n)
+{
+    string r;
+    while(n!=0) {r=(n%2==0 ?"0":"1")+r; n/=2;}
+    return r;
+}
+
+int BinaryS (int l[],int left,int right,int x){
+    if(left<= right){
+        int mid = (left+right)/2;
+        if(x>l[mid]) return findPos(l,left,mid-1,x);
+        else return findPos(l,mid+1,right,x);
+    }
+    return right;
+}
+
+// USING SET 
+set <int> s;
+s.insert(x);
+s.size()
+
+//
+fill_n(v,n,x);
+
+
+
+// COUNTING THE NUMBER OF ELEMENTS IN UNION OF TWO SETS  
+** ALL THE SETS SHOULD BE SORTED 
+
+template <typename T>
+class CountingPushBack{
+  public:
+        using value_type = T;
+        void push_back(T const &) {++count;}
+        size_t get_count() const {return count;}
+  private:
+        size_t count = 0;
+};
+
+CountingPushBack<int> cp;
+set_union(s[i].begin(), s[i].end(), s[j].begin(), s[j].end(),back_inserter(cp));
