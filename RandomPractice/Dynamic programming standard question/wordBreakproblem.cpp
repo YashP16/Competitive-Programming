@@ -25,27 +25,45 @@
 #define MEM(a,val) memset(a,val,sizeof(a))
 using namespace std;
 
+bool inDict(int n,string dict[],string s){
+	FOR(i,0,n,1){
+		if(s==dict[i])return true;
+	}
+	return false;
+}
+
+bool isBreakable(int n,string s, string dict[]){
+	int len = s.length();
+	vector<bool> v(len,0);
+	FOR(i,0,len,1){
+		if(inDict(n,dict,s.substr(0,i+1)))v[i]=1;
+		if(v[i] && i==len-1)return true;
+		if(v[i]){
+			FOR(j,i+1,len,1){
+				if(inDict(n,dict,s.substr(i+1,j-i)))v[j]=1;
+				if(v[j] && j == len-1)return true;
+			}
+		}
+	}
+	REP(i,len)cout << v[i] << " ";
+	cout << endl << endl;
+	return false;
+}
 
 
 int main(){
 	fast_io;
 	cin.tie(NULL);
+
 	int n;
-	cin >> n ;
-	int a[n],b[n];
-	REP(i,n)cin >> a[i];
-	REP(i,n)cin >> b[i];
-	int *p = min_element(a,a+n);
-	int *q= min_element(b,b+n);
-	if(p-a != q-b)cout << *p + *q << "\n";
-	else{
-		int am = *p;
-		int bm = *q;
-		a[p-a] = InF;
-		b[q-b] = InF;
-		p = min_element(a,a+n);
-		q = min_element(b,b+n);
-		cout << min(am+ *q,bm+ *p) << "\n";
-	}
+	cin >> n;
+	string dict[n],s;
+	REP(i,n)cin >> dict[i];
+	cin >> s;
+
+	cout << isBreakable(n,s,dict) << "\n";
+
+
 	return 0;
+
 }

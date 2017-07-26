@@ -27,9 +27,50 @@
 #define MEM(a,val) memset(a,val,sizeof(a))
 using namespace std;
 
-int main(){
-	fast_io;
-	cin.tie(NULL);
+bool sa(pair<ll,bool> &a,pair<ll,bool> &b){
+    return a.F>b.F;
+}
 
-	return 0;
+
+int main(){
+    fast_io;
+    cin.tie(NULL);
+    int t,n,m;
+    int mod = 1000000007;
+    cin >> t;
+    
+    while(t--){
+        cin >> m >> n;
+        vector < pair <ll,bool> > x;
+        int p = 0;
+        REP(i,m-1){
+            cin >> p;
+            x.PB(make_pair(p,1));
+        }
+        REP(i,n-1){
+            cin >> p;
+            x.PB(make_pair(p,0));
+        }
+        
+        ll xp = 1,yp = 1;
+        ll total =0;
+        sort(x.begin(),x.end(),sa);
+        
+        int pos = 0;
+        while(pos < m+n-2){
+            if(x[pos].S){
+                total = (total + xp*x[pos].F)%mod;
+                yp++;
+            }
+            else{
+                total = (total + yp*x[pos].F)%mod;
+                xp++;
+            }
+            pos++;
+        }
+        
+        cout << total << "\n";
+        
+    }
+    return 0;
 }

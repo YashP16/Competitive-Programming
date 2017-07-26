@@ -8,8 +8,10 @@
 #define FOR(i,a,b,c) for(int i=a;i<b;i += c)
 #define FORd(i,a,b,c) for(int i=a;i>=b;i -=c)
 #define all(v) ((v).begin(),(v).end())
-#define vi vector<ll>
-#define vii vector<vector<ll> >
+#define vi vector<int>
+#define vii vector<vector<int> >
+#define vI vector<ll>
+#define vII vector<vector<ll> >
 #define ll long long int //range -> 9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 #define ui unsigned int // range -> 0 to 4,294,967,295
 #define ull unsigned long long
@@ -25,27 +27,43 @@
 #define MEM(a,val) memset(a,val,sizeof(a))
 using namespace std;
 
-
-
 int main(){
 	fast_io;
 	cin.tie(NULL);
-	int n;
-	cin >> n ;
-	int a[n],b[n];
-	REP(i,n)cin >> a[i];
-	REP(i,n)cin >> b[i];
-	int *p = min_element(a,a+n);
-	int *q= min_element(b,b+n);
-	if(p-a != q-b)cout << *p + *q << "\n";
-	else{
-		int am = *p;
-		int bm = *q;
-		a[p-a] = InF;
-		b[q-b] = InF;
-		p = min_element(a,a+n);
-		q = min_element(b,b+n);
-		cout << min(am+ *q,bm+ *p) << "\n";
+	int q,n,m;
+	cin >> q;
+	while(q--){
+		cin >> n >> m;
+		int x,y;
+		vii graph(n+1);
+		REP(i,m){
+			cin >> x >> y;
+			graph[x].PB(y);
+			graph[y].PB(x);
+		}
+		vi dist(n+1,-1);
+		int start;
+		cin >> start;
+		queue <int> bfs;
+		bfs.push(start);
+		dist[start] = 0;
+		while(!bfs.empty()){
+			int f = bfs.front();
+			REP(i,graph[f].size()){
+				if(dist[graph[f][i]] == -1){
+					bfs.push(graph[f][i]);
+					dist[graph[f][i]]=dist[f]+1;
+				}
+			}
+			bfs.pop();
+		}
+		FOR(i,1,n+1,1){
+			if(i != start){ 
+				if(dist[i]!= -1)cout << dist[i]*6 << " ";
+				else cout << dist[i] << " ";
+			}
+		}		
+		cout << "\n";
 	}
 	return 0;
 }

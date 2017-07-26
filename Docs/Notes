@@ -218,3 +218,32 @@ class CountingPushBack{
 
 CountingPushBack<int> cp;
 set_union(s[i].begin(), s[i].end(), s[j].begin(), s[j].end(),back_inserter(cp));
+
+
+//MAPS 
+
++ map<key_type , value_type> m;
++ m.at(key_value); ~ if key is not present throws an exception
++ m[key_value]  ~ if key is not present it can insert new value 
++ m.empty()
+~ values wrt a particular key can be over written
++ m.max_size() ~ returns the upper bound of the entries that a map can contain (maximum possible entries) based on the memory allocated to the map
++ m.insert( pair<int,int> (4,5));
++ m.erase() // needs iterator
++ m.clear() // clears whole map
++ m.find() // returns iterator
+
+
+// QUEUE 
+# include <queue> 
+
+The functions supported by queue are :
+empty() – Returns whether the queue is empty
+size() – Returns the size of the queue
+front() – Returns a reference to the first element of the queue
+back() – Returns a reference to the last element of the queue
+push(g) – Adds the element ‘g’ at the end of the queue
+pop() – Deletes the first element of the queue
+
+
+

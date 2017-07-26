@@ -1,3 +1,5 @@
+// Sieve of Eratosthenes 
+
 #include <bits/stdc++.h>
 
 #define Pi 3.141592653589793
@@ -8,8 +10,10 @@
 #define FOR(i,a,b,c) for(int i=a;i<b;i += c)
 #define FORd(i,a,b,c) for(int i=a;i>=b;i -=c)
 #define all(v) ((v).begin(),(v).end())
-#define vi vector<ll>
-#define vii vector<vector<ll> >
+#define vi vector<int>
+#define vii vector<vector<int> >
+#define vI vector<ll>
+#define vII vector<vector<ll> >
 #define ll long long int //range -> 9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 #define ui unsigned int // range -> 0 to 4,294,967,295
 #define ull unsigned long long
@@ -25,27 +29,28 @@
 #define MEM(a,val) memset(a,val,sizeof(a))
 using namespace std;
 
-
+void SieveOfEratosthenes(int n){
+    bool prime[n+1];
+    memset(prime, true, sizeof(prime));
+    for (int p=2; p*p<=n; p++){
+        if (prime[p] == true){
+            for (int i=p*2; i<=n; i += p)
+                prime[i] = false;
+        }
+    }
+ 
+    cout << "{ ";
+    for (int p=2; p<=n; p++){
+       if (prime[p])cout << 1 << ", ";
+       else cout << 0 << ", ";
+    }   	
+    cout << " }";
+}
 
 int main(){
 	fast_io;
 	cin.tie(NULL);
-	int n;
-	cin >> n ;
-	int a[n],b[n];
-	REP(i,n)cin >> a[i];
-	REP(i,n)cin >> b[i];
-	int *p = min_element(a,a+n);
-	int *q= min_element(b,b+n);
-	if(p-a != q-b)cout << *p + *q << "\n";
-	else{
-		int am = *p;
-		int bm = *q;
-		a[p-a] = InF;
-		b[q-b] = InF;
-		p = min_element(a,a+n);
-		q = min_element(b,b+n);
-		cout << min(am+ *q,bm+ *p) << "\n";
-	}
+	int n = pow(10,6)+1;
+    SieveOfEratosthenes(n);
 	return 0;
 }

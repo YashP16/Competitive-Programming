@@ -8,8 +8,10 @@
 #define FOR(i,a,b,c) for(int i=a;i<b;i += c)
 #define FORd(i,a,b,c) for(int i=a;i>=b;i -=c)
 #define all(v) ((v).begin(),(v).end())
-#define vi vector<ll>
-#define vii vector<vector<ll> >
+#define vi vector<int>
+#define vii vector<vector<int> >
+#define vI vector<ll>
+#define vII vector<vector<ll> >
 #define ll long long int //range -> 9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 #define ui unsigned int // range -> 0 to 4,294,967,295
 #define ull unsigned long long
@@ -25,27 +27,48 @@
 #define MEM(a,val) memset(a,val,sizeof(a))
 using namespace std;
 
-
-
 int main(){
 	fast_io;
 	cin.tie(NULL);
-	int n;
-	cin >> n ;
-	int a[n],b[n];
-	REP(i,n)cin >> a[i];
-	REP(i,n)cin >> b[i];
-	int *p = min_element(a,a+n);
-	int *q= min_element(b,b+n);
-	if(p-a != q-b)cout << *p + *q << "\n";
-	else{
-		int am = *p;
-		int bm = *q;
-		a[p-a] = InF;
-		b[q-b] = InF;
-		p = min_element(a,a+n);
-		q = min_element(b,b+n);
-		cout << min(am+ *q,bm+ *p) << "\n";
+	int t,m,n;
+	string a,b;
+	cin >> t;
+	while(t--){
+		cin >> m >> n;
+		cin >> a >> b;
+		
+		if(a.length()<b.length()){
+			swap(a,b);
+			swap(m,n);
+		}
+		int x,mi,count = 0;
+		int max =0;
+		REP(i,m){
+			x = i;
+			mi = 1;
+			count = 0;
+			int j = 0,y=0;
+			bool flag;
+			while(j<n){
+				y = j;
+				while(a[i]==b[y]){
+					count++;
+					i++;
+					y++;
+					if(i == m || y == n)break;
+				}
+				if(count>max){
+					max = count;
+					mi = count;
+				}
+				i = x;
+				j++;
+				count = 0;
+			}
+			i = x;
+			if(mi>1)i+= mi-1;
+		}
+		cout << max << "\n";
 	}
 	return 0;
 }

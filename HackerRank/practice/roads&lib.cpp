@@ -27,9 +27,58 @@
 #define MEM(a,val) memset(a,val,sizeof(a))
 using namespace std;
 
+
 int main(){
 	fast_io;
 	cin.tie(NULL);
+	int q,n,m,cr,cl,x,y;
+	cin >> q;
+	while(q--){
+		cin >> n >> m >> cl >> cr;
+		vii graph(n+1);
+		
+		
+		while(m--){
+			cin >> x >> y;
+			graph[x].PB(y);
+			graph[y].PB(x);		
+		}
 
+		bool color[n+1] ={0};
+		vi val(n+1,0);
+		int count = 0;
+		
+		FOR(i,1,n+1,1){
+			if(color[i]!=1){
+				count++;
+				stack <int> st;
+		 		st.push(i);
+		 		color[i]=1;
+		 		val[count]++;
+		 		while(!st.empty()){
+		 			int t = st.top();
+		 			if(!graph[t].empty()){
+		 				if(color[graph[t][0]]==0){
+		 					val[count]++;
+		 					st.push(graph[t][0]);
+		 					color[graph[t][0]] = 1;
+		 				}
+		 				graph[t].erase(graph[t].begin(),graph[t].begin()+1);
+		 			}
+			 		else{
+			 			st.pop();
+			 		}
+		 		}
+		 	}
+		}
+		
+		int cost = 0;
+		FOR(i,1,count+1,1){
+			if(cr*(val[i]-1)<=cl*val[i]) cost+= cr*(val[i]-1) + cl; 
+			else cost += cl*val[i];
+		}
+		cout <<cost << "\n";
+
+	}
 	return 0;
 }

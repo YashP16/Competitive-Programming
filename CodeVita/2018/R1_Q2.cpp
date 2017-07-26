@@ -8,8 +8,10 @@
 #define FOR(i,a,b,c) for(int i=a;i<b;i += c)
 #define FORd(i,a,b,c) for(int i=a;i>=b;i -=c)
 #define all(v) ((v).begin(),(v).end())
-#define vi vector<ll>
-#define vii vector<vector<ll> >
+#define vi vector<int>
+#define vii vector<vector<int> >
+#define vI vector<ll>
+#define vII vector<vector<ll> >
 #define ll long long int //range -> 9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 #define ui unsigned int // range -> 0 to 4,294,967,295
 #define ull unsigned long long
@@ -25,27 +27,38 @@
 #define MEM(a,val) memset(a,val,sizeof(a))
 using namespace std;
 
-
-
 int main(){
 	fast_io;
 	cin.tie(NULL);
-	int n;
-	cin >> n ;
-	int a[n],b[n];
-	REP(i,n)cin >> a[i];
-	REP(i,n)cin >> b[i];
-	int *p = min_element(a,a+n);
-	int *q= min_element(b,b+n);
-	if(p-a != q-b)cout << *p + *q << "\n";
-	else{
-		int am = *p;
-		int bm = *q;
-		a[p-a] = InF;
-		b[q-b] = InF;
-		p = min_element(a,a+n);
-		q = min_element(b,b+n);
-		cout << min(am+ *q,bm+ *p) << "\n";
+	int t;
+	cin >> t;
+	while(t--){
+		int n,k;
+		cin >> n >> k;
+		vi b(n);
+		vii pos(5001);
+
+		REP(i,n){
+			cin >> b[i];
+			pos[b[i]].PB(i);
+		}
+		stack <int> s;
+		s.push(*max_element(b.begin(), b.end()));
+
+		while(!s.empty()){
+			int t = s.top();
+			REP(i,pos[t].size()){	
+				if(pos[t][i]>0 && b[pos[t][i-1]]<b[pos[t][i]]-1){
+					b[pos[t][i-1]] = b[pos[t][i]]-1;
+				} 
+				if(pos[t][i]<n-1 && b[pos[t][i+1]]<b[pos[t][i]]-1){
+					b[pos[t][i+1]]= b[pos[t][i]]-1;
+				}
+			}
+			s.pop();	
+			s.push(t-1);
+		}
+		cout << b[k] << "\n";
 	}
 	return 0;
 }

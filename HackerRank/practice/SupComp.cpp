@@ -22,30 +22,45 @@
 #define WRITE freopen("output.txt", "w", stdout);
 #define fast_io ios_base::sync_with_stdio(false)
 #define SQR(n) ((n)*(n))
-#define MEM(a,val) memset(a,val,sizeof(a))
+#define MEM(a,val) memset(a,val,sizef(a))
 using namespace std;
-
-
 
 int main(){
 	fast_io;
 	cin.tie(NULL);
-	int n;
-	cin >> n ;
-	int a[n],b[n];
-	REP(i,n)cin >> a[i];
-	REP(i,n)cin >> b[i];
-	int *p = min_element(a,a+n);
-	int *q= min_element(b,b+n);
-	if(p-a != q-b)cout << *p + *q << "\n";
-	else{
-		int am = *p;
-		int bm = *q;
-		a[p-a] = InF;
-		b[q-b] = InF;
-		p = min_element(a,a+n);
-		q = min_element(b,b+n);
-		cout << min(am+ *q,bm+ *p) << "\n";
+	int r,c;
+	int ans=0;
+	cin >> r >> c;
+	string m[r];
+	REP(i,r)cin >> m[i];
+
+	vector <int> A;
+	
+	FOR(i,1,r-1,1){
+		FOR(j,1,c-1,1){
+			int a = 0;
+			while(m[i+a][j]=='G' && m[i-a][j]=='G' && m[i][j+a]=='G' && m[i][j-a]=='G'){
+				m[i+a][j] = m[i-a][j]= m[i][j+a] = m[i][j-a] = 'g';
+				FOR(k,1,r-1,1){
+					FOR(l,1,c-1,1){
+						int A = 0;
+						while(m[k+A][l]=='G' && m[k-A][l]=='G' && m[k][l+A]=='G' && m[k][l-A]=='G'){
+							ans = max(ans,(1+4*a)*(1+4*A));
+							A++;
+						}
+
+					}
+				}
+			a++;				
+			}
+			a = 0;
+			while(m[i+a][j]=='g' && m[i-a][j]=='g' && m[i][j+a]=='g' && m[i][j-a]=='g'){
+				m[i+a][j] = m[i-a][j]= m[i][j+a] = m[i][j-a] = 'G';
+				a++;
+			}
+		}
 	}
+	cout << ans << "\n";
+
 	return 0;
 }

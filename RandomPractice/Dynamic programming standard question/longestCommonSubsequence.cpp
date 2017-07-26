@@ -71,7 +71,7 @@ void LCS(string s1, string s2){
 		}
 	}
 	reverse(result.begin(),result.end());
-	cout << result << endl; 
+	cout << result.length() << endl; 
 }
 
 int main(){

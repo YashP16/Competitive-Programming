@@ -27,9 +27,43 @@
 #define MEM(a,val) memset(a,val,sizeof(a))
 using namespace std;
 
+
+
 int main(){
 	fast_io;
 	cin.tie(NULL);
+	string s;
+	cin >> s;
+	string rev ="";
+	rev += s[1] + s[0];
+	int a =((int)(s[0]-'0'))*10+((int)(s[1]-'0')); 
+	int m = ((int)(s[3]-'0'))*10+((int)(s[4]-'0'));
+	int n = ((int)(s[1]-'0'))*10+((int)(s[0]-'0'));
+	int j = ((int)(s[1]-'0')+1)*10+((int)(s[0]-'0'));
+	if((int)s[1]-'0'<=5 && !(s[0]=='2' && s[1]=='3')  &&(!(s[1]=='5' && (s[3]=='5' && (s[4]>'0' && s[4]!=s[0]))))){
+		if(s[3]<s[1]){
+			cout <<  n - m  << endl;
+		}
+		else if(s[3]==s[1] && (s[4]<=s[0]))
+			if(s[0]!=s[4])cout << (int)(s[0]-'0') -(int)(s[4]-'0') << endl;
+			else cout << (int)(s[0]-'0') -(int)(s[4]-'0') << endl;
+		else {
+			cout << 60 - m + j  << endl;
+		} 			
+	}
+	else{
+		if(s[0]=='0'){
+			cout <<  60-m + (10-a-1)*60  + 1<< endl;
+		}
+		else if((s[0]=='2' && s[1]=='3')){
+			if(m>n)cout << 60-m+(24-a-1)*60 << endl;
+			else cout << n-m << endl;
+		}
+		else {
+			cout << 60-m+(20-a-1)*60 + 2<< endl;
+
+		}
+	}
 
 	return 0;
 }

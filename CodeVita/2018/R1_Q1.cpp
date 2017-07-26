@@ -4,7 +4,7 @@
 #define eps 1e-9
 #define MAX int(1e9)
 #define MIN int(-1e9)
-#define REP(i,n) for(ll i=0;i<(n);i++)
+#define REP(i,n) for(int i=0;i<(n);i++)
 #define FOR(i,a,b,c) for(int i=a;i<b;i += c)
 #define FORd(i,a,b,c) for(int i=a;i>=b;i -=c)
 #define all(v) ((v).begin(),(v).end())
@@ -27,9 +27,61 @@
 #define MEM(a,val) memset(a,val,sizeof(a))
 using namespace std;
 
+void count(vi perm,vi shuffles,vi &err,int n){
+	REP(i,n){
+		if(perm[i]!=shuffles[i])err.PB(i);
+	}
+}
+
 int main(){
 	fast_io;
 	cin.tie(NULL);
+	int n;
+	cin >> n;
+	vi perm(n);
+	REP(i,n) cin >> perm[i];
+	vi cards(n);
+	REP(i,n) cards[i] = i+1;
+	vii shuffles(8);
+	
+	REP(i,8){
+		int ed = 0;
+		int od = n/2;
+		FOR(j,0,n,1){
+			if(i == 0){
+				if(j%2==0){
+					shuffles[i].PB(cards[ed]);
+					ed++;
+				}
+				else{
+					shuffles[i].PB(cards[od]);
+					od++;
+				}
+			}
+			else{
+				if(j%2==0){
+					shuffles[i].PB(shuffles[i-1][ed]);
+					ed++;
+				}
+				else{
+					shuffles[i].PB(shuffles[i-1][od]);
+					od++;
+				}
+			}
+		}
+	}
+	vii err(8);
+	REP(i,8){
+		count(perm,shuffles[i],err[i],n);
+		if(err[i].size()/2 == 0){
+			cout << i+1 << "\nNONE";
+			break;
+		}
+
+		else if(err[i].size()/2 <= i+1){
+			
+		}
+	}
 
 	return 0;
 }

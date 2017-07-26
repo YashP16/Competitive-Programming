@@ -31,21 +31,32 @@ int main(){
 	fast_io;
 	cin.tie(NULL);
 	int n;
-	cin >> n ;
-	int a[n],b[n];
-	REP(i,n)cin >> a[i];
-	REP(i,n)cin >> b[i];
-	int *p = min_element(a,a+n);
-	int *q= min_element(b,b+n);
-	if(p-a != q-b)cout << *p + *q << "\n";
-	else{
-		int am = *p;
-		int bm = *q;
-		a[p-a] = InF;
-		b[q-b] = InF;
-		p = min_element(a,a+n);
-		q = min_element(b,b+n);
-		cout << min(am+ *q,bm+ *p) << "\n";
+	string s;
+	cin >> n;
+	while(n--){
+		cin >> s;
+		int len = s.length();
+		int pos = len-1;
+		while(pos>0){
+			if(s[pos]<=s[pos-1])pos--;
+			else break;
+		}
+		if(pos>0){
+			char c = s[pos-1];
+			int idx = len-1;
+			while(idx>pos){
+				if(s[idx] <= c)idx--;
+				else break;
+			}
+			REP(i,pos-1)cout << s[i];
+			cout << s[idx];
+			FORd(i,len-1,pos,1){
+				if(i==idx)cout << c;
+				else cout << s[i];
+			} 
+			cout << "\n";
+		}
+		else cout << "no answer\n";
 	}
 	return 0;
 }

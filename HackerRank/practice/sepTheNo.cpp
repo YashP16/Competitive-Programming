@@ -8,8 +8,10 @@
 #define FOR(i,a,b,c) for(int i=a;i<b;i += c)
 #define FORd(i,a,b,c) for(int i=a;i>=b;i -=c)
 #define all(v) ((v).begin(),(v).end())
-#define vi vector<ll>
-#define vii vector<vector<ll> >
+#define vi vector<int>
+#define vii vector<vector<int> >
+#define vI vector<ll>
+#define vII vector<vector<ll> >
 #define ll long long int //range -> 9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 #define ui unsigned int // range -> 0 to 4,294,967,295
 #define ull unsigned long long
@@ -26,26 +28,53 @@
 using namespace std;
 
 
+string isSeperable(string s){
+	int lens = s.length();
+	if(lens == 1)return "!";
+
+	string init = "";
+	init+=s[0];
+	string curr,nxt;
+	int c,n,nxts;
+	int pos=1,lenn;
+
+	int count = 1;
+	while(1){
+		curr= init;
+		c = stoi(curr);
+		n = c + count;
+		nxt = to_string(n);
+		lenn = nxt.length();
+		if(lens-pos<lenn)return "!";
+		nxts = stoi(s.substr(pos,lenn));
+		if(nxts==n){
+			if(pos+lenn== lens)return init;
+			count++;
+			pos+=lenn;
+		}
+		else{
+			pos = init.length();
+			init+=s[pos];
+			if(init.length()>lens/2 )return "!";
+			count = 1;
+			pos++;
+		}
+	}
+}
+
 
 int main(){
 	fast_io;
 	cin.tie(NULL);
-	int n;
-	cin >> n ;
-	int a[n],b[n];
-	REP(i,n)cin >> a[i];
-	REP(i,n)cin >> b[i];
-	int *p = min_element(a,a+n);
-	int *q= min_element(b,b+n);
-	if(p-a != q-b)cout << *p + *q << "\n";
-	else{
-		int am = *p;
-		int bm = *q;
-		a[p-a] = InF;
-		b[q-b] = InF;
-		p = min_element(a,a+n);
-		q = min_element(b,b+n);
-		cout << min(am+ *q,bm+ *p) << "\n";
+	int t;
+	cin >> t;
+	while(t--){
+		string s;
+		cin >> s;
+		string res = isSeperable(s);
+		if(res == "!")cout << "NO\n";
+		else cout << "YES " << res << "\n";
+
 	}
 	return 0;
 }

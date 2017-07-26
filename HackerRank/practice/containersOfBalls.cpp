@@ -30,22 +30,29 @@ using namespace std;
 int main(){
 	fast_io;
 	cin.tie(NULL);
-	int n;
-	cin >> n ;
-	int a[n],b[n];
-	REP(i,n)cin >> a[i];
-	REP(i,n)cin >> b[i];
-	int *p = min_element(a,a+n);
-	int *q= min_element(b,b+n);
-	if(p-a != q-b)cout << *p + *q << "\n";
-	else{
-		int am = *p;
-		int bm = *q;
-		a[p-a] = InF;
-		b[q-b] = InF;
-		p = min_element(a,a+n);
-		q = min_element(b,b+n);
-		cout << min(am+ *q,bm+ *p) << "\n";
+	int q,n;
+	cin >> q;
+	while(q--){
+		cin >> n;
+		int a[n]={0},b[n]={0},x;
+		REP(i,n){
+			REP(j,n){
+				cin >> x;
+				a[i]+=x;
+				b[j]+=x;
+			}
+		}
+		sort(a,a+n);
+		sort(b,b+n);
+		bool flag = 1;
+		REP(i,n){
+			if(a[i]!=b[i]){
+				flag=0;
+				break;
+			}
+		}
+		if(flag)cout << "Possible\n";
+		else cout << "Impossible\n";		
 	}
 	return 0;
 }

@@ -8,8 +8,10 @@
 #define FOR(i,a,b,c) for(int i=a;i<b;i += c)
 #define FORd(i,a,b,c) for(int i=a;i>=b;i -=c)
 #define all(v) ((v).begin(),(v).end())
-#define vi vector<ll>
-#define vii vector<vector<ll> >
+#define vi vector<int>
+#define vii vector<vector<int> >
+#define vI vector<ll>
+#define vII vector<vector<ll> >
 #define ll long long int //range -> 9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 #define ui unsigned int // range -> 0 to 4,294,967,295
 #define ull unsigned long long
@@ -23,29 +25,44 @@
 #define fast_io ios_base::sync_with_stdio(false)
 #define SQR(n) ((n)*(n))
 #define MEM(a,val) memset(a,val,sizeof(a))
+
 using namespace std;
 
+vector <bool> prime(pow(10,6)+1,1);
+vi l;
 
+void SieveOfEratosthenes(int n){
+    for (int p=2; p*p<=n; p++){
+        if (prime[p] == true){
+            l.PB(p);
+            for (int i=p*2; i<=n; i += p)
+                prime[i] = false;
+        }
+    }   	
+}
 
 int main(){
 	fast_io;
 	cin.tie(NULL);
-	int n;
-	cin >> n ;
-	int a[n],b[n];
-	REP(i,n)cin >> a[i];
-	REP(i,n)cin >> b[i];
-	int *p = min_element(a,a+n);
-	int *q= min_element(b,b+n);
-	if(p-a != q-b)cout << *p + *q << "\n";
-	else{
-		int am = *p;
-		int bm = *q;
-		a[p-a] = InF;
-		b[q-b] = InF;
-		p = min_element(a,a+n);
-		q = min_element(b,b+n);
-		cout << min(am+ *q,bm+ *p) << "\n";
+	SieveOfEratosthenes(pow(10,6)+1);
+	int t,n;
+	cin >> t;
+
+	while(t--){
+		cin >> n;
+		bool flag = 0;
+		int c=0;
+		while(l[c] <= n/2 && c < l.size()){
+			if(prime[n-l[c]]){
+				//cout << l[c] << " " << n-l[c];
+				cout << "Yes\n";
+				flag =1;
+				break;
+			}
+			c++;
+		}
+		if(!flag) cout << "No\n";
 	}
+
 	return 0;
 }

@@ -26,10 +26,47 @@
 #define SQR(n) ((n)*(n))
 #define MEM(a,val) memset(a,val,sizeof(a))
 using namespace std;
+	
+int findPos (vector <pair <int,int> > l,int left,int right,int x){
+    if(left<= right){
+        int mid = (left+right)/2;
+        if(x<l[mid].F) return findPos(l,left,mid-1,x);
+        else return findPos(l,mid+1,right,x);
+    }
+    return right;
+}
 
 int main(){
 	fast_io;
 	cin.tie(NULL);
+	int n;
+	cin >> n;
+	vi a(n), o(n);
+	vI ps(n);
+	
+	cin >> a[0];
+	ps[0] = a[0];
+	FOR(i,1,n,1){
+		cin >> a[i];
+		ps[i]= ps[i-1] + a[i];
+	}
+	REP (i,n)cin >> o[i];
 
+	vector < pair <int,int> > heads(1,make_pair(0,ps[n-1]));
+	int sum = ps[n-1];
+	REP(i,n){
+		int pos = findPos(heads,0,heads.size(),o[i]-1);
+		cout << pos << " ";
+		if(pos == heads.size()){
+			heads[pos-1].S =ps[o[i]]- a[o[i]];
+			if(o[i] != n){
+				heads.PB(make_pair(o[i],ps[o[i]]-ps[o[i]-1]));
+			}
+			sum = max(max(heads[pos-1].S,max)) 
+		}
+		else{
+
+		}
+	}
 	return 0;
 }

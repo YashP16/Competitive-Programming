@@ -25,27 +25,26 @@
 #define MEM(a,val) memset(a,val,sizeof(a))
 using namespace std;
 
-
-
 int main(){
 	fast_io;
 	cin.tie(NULL);
-	int n;
-	cin >> n ;
-	int a[n],b[n];
-	REP(i,n)cin >> a[i];
-	REP(i,n)cin >> b[i];
-	int *p = min_element(a,a+n);
-	int *q= min_element(b,b+n);
-	if(p-a != q-b)cout << *p + *q << "\n";
-	else{
-		int am = *p;
-		int bm = *q;
-		a[p-a] = InF;
-		b[q-b] = InF;
-		p = min_element(a,a+n);
-		q = min_element(b,b+n);
-		cout << min(am+ *q,bm+ *p) << "\n";
+	int n,k;
+	cin >> n >> k;
+	int a[n];
+	int r[k]={0};
+	int count =0;
+	REP(i,n){
+		cin >> a[i];
+		r[a[i]%k]++;
 	}
+	int p = 1;
+
+	while(p<=k/2){
+		if(p == k-p)count++;
+		else count+= max(r[p],r[k-p]);
+		p++;
+	}
+	if(r[0]>0)count++;
+	cout << count << "\n";
 	return 0;
 }
