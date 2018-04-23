@@ -247,3 +247,34 @@ pop() – Deletes the first element of the queue
 
 
 
+
+// getline()
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+getline(cin, s);
+
+// sieve 
+vector <bool> prime(1000001,1);
+
+void sieve(int n){
+    prime[0]=0;
+    prime[1]=0;
+    for (int p=2; p*p<=n; p++){
+        if (prime[p] == true){
+            for (int i=p*2; i<=n; i += p)
+                prime[i] = false;
+        }
+    }
+}
+
+# Priority Queue 
+
+class Compare
+{
+public:
+    bool operator() (const pair<int, pair<int,int> > &a,const pair<int, pair<int,int> > &b){
+        if(a.F >b.first)return true;
+        return false;
+    }
+};
+
+    priority_queue < pair<int, pair<int,int> >, vector < pair <int,pair <int,int> > > , Compare > Q;
